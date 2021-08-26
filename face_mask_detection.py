@@ -8,13 +8,13 @@ from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 import numpy as np
-from google.colab.patches import cv2_imshow
+# from google.colab.patches import cv2_imshow
 import PIL
 import io
 import html
 import time
 from IPython.display import display, Javascript
-from google.colab.output import eval_js
+# from google.colab.output import eval_js
 from base64 import b64decode, b64encode
 from IPython.display import Image
 
@@ -45,8 +45,10 @@ def face_mask_detector(frame):
       face_frame =  preprocess_input(face_frame)
       faces_list.append(face_frame)
       if len(faces_list)>0:
-          preds = model.predict(faces_list)
-          print(preds)
+        for f in faces_list:
+          preds = model.predict(f)
+#           preds = model.predict(faces_list)
+#           print(preds)
       for pred in preds:
           (mask, withoutMask) = pred
       label = "Mask" if mask > withoutMask else "No Mask"
